@@ -1,0 +1,37 @@
+pipeline:
+  name: terraform init
+  identifier: terraform_init
+  projectIdentifier: DemoTx
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: account.Github_OAuth_1702454216196
+        repoName: ipreetgs/test-harness
+        build: <+input>
+  stages:
+    - stage:
+        name: terraforminit
+        identifier: terraforminit
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Docker
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: init
+                  identifier: init
+                  spec:
+                    shell: Sh
+                    command: terraform init
+        delegateSelectors:
+          - docker-delegate
