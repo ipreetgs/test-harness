@@ -12,26 +12,39 @@ pipeline:
         build: <+input>
   stages:
     - stage:
-        name: terraforminit
-        identifier: terraforminit
+        name: terrafork
+        identifier: terrafork
         description: ""
-        type: CI
+        type: Custom
         spec:
-          cloneCodebase: true
-          platform:
-            os: Linux
-            arch: Amd64
-          runtime:
-            type: Docker
-            spec: {}
           execution:
             steps:
               - step:
-                  type: Run
-                  name: init
-                  identifier: init
+                  type: TerraformPlan
+                  name: TerraformPlan_1
+                  identifier: TerraformPlan_1
                   spec:
-                    shell: Sh
-                    command: terraform init
+                    provisionerIdentifier: v1s1
+                    cloudCliConfiguration:
+                      command: Apply
+                      configFiles:
+                        store:
+                          spec:
+                            connectorRef: awspersonal
+                            bucketName: demotxtfstatefile
+                            region: us-east-1
+                            folderPath: /
+                          type: S3
+                      skipStateStorage: false
+                    delegateSelectors:
+                      - docker-delegate
+                  timeout: 10m
+                  failureStrategies:
+                    - onFailure:
+                        errors:
+                          - AllErrors
+                        action:
+                          type: Abort
+        tags: {}
         delegateSelectors:
           - docker-delegate
