@@ -53,7 +53,7 @@ pipeline:
                           type: S3
                       skipStateStorage: false
                     delegateSelectors:
-                      - docker-delegate
+                      - docker-delegate2-terraform
                   timeout: 10m
                   failureStrategies:
                     - onFailure:
@@ -63,4 +63,4 @@ pipeline:
                           type: Abort
         tags: {}
         delegateSelectors:
-          - docker-delegate
+          - docker-delegate2-terraform
