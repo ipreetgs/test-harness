@@ -46,7 +46,7 @@ pipeline:
                       configFiles:
                         store:
                           spec:
-                            connectorRef: awspersonal
+                            connectorRef: awspersonaltx
                             bucketName: demotxtfstatefile
                             region: us-east-1
                             folderPath: /
