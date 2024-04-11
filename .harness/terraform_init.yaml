@@ -4,63 +4,34 @@ pipeline:
   projectIdentifier: DemoTx
   orgIdentifier: default
   tags: {}
+  stages:
+    - stage:
+        name: clone-code
+        identifier: clonecode
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Docker
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: init-terraform
+                  identifier: initterraform
+                  spec:
+                    shell: Sh
+                    command: terraform init
+        delegateSelectors:
+          - docker-delegate2-terraform
   properties:
     ci:
       codebase:
         connectorRef: account.Github_OAuth_1702454216196
         repoName: ipreetgs/test-harness
         build: <+input>
-  stages:
-    - stage:
-        name: terraform
-        identifier: terrafork
-        description: ""
-        type: Custom
-        spec:
-          execution:
-            steps:
-              - step:
-                  type: ShellScript
-                  name: ShellScript_1
-                  identifier: ShellScript_1
-                  spec:
-                    shell: Bash
-                    executionTarget: {}
-                    source:
-                      type: Inline
-                      spec:
-                        script: |-
-                          echo hello
-                          pwd
-                    environmentVariables: []
-                    outputVariables: []
-                  timeout: 10m
-              - step:
-                  type: TerraformPlan
-                  name: TerraformPlan_1
-                  identifier: TerraformPlan_1
-                  spec:
-                    provisionerIdentifier: v1s1
-                    cloudCliConfiguration:
-                      command: Apply
-                      configFiles:
-                        store:
-                          spec:
-                            connectorRef: awspersonaltx
-                            bucketName: demotxtfstatefile
-                            region: us-east-1
-                            folderPath: statefile
-                          type: S3
-                      skipStateStorage: false
-                    delegateSelectors:
-                      - docker-delegate2-terraform
-                  timeout: 10m
-                  failureStrategies:
-                    - onFailure:
-                        errors:
-                          - AllErrors
-                        action:
-                          type: Abort
-        tags: {}
-        delegateSelectors:
-          - docker-delegate2-terraform
