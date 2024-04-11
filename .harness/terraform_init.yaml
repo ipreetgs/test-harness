@@ -49,7 +49,7 @@ pipeline:
                             connectorRef: awspersonaltx
                             bucketName: demotxtfstatefile
                             region: us-east-1
-                            folderPath: /
+                            folderPath: statefile
                           type: S3
                       skipStateStorage: false
                     delegateSelectors:
