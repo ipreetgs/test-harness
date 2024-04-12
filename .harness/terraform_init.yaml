@@ -6,8 +6,8 @@ pipeline:
   tags: {}
   stages:
     - stage:
-        name: clone-code
-        identifier: clonecode
+        name: terraform-test
+        identifier: terraformtest
         description: ""
         type: CI
         spec:
@@ -22,22 +22,13 @@ pipeline:
             steps:
               - step:
                   type: Run
-                  name: init-terraform
-                  identifier: initterraform
-                  spec:
-                    shell: Sh
-                    command: |-
-                      echo hello
-                      pwd
-                      ls
-              - step:
-                  type: Run
-                  name: terraform
-                  identifier: terraform
+                  name: Run_1
+                  identifier: Run_1
                   spec:
                     shell: Bash
                     command: terraform init
         delegateSelectors:
+          - docker-delegate2-terraform
           - delegate-1-terraform
   properties:
     ci:
