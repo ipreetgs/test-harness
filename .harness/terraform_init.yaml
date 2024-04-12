@@ -26,6 +26,16 @@ pipeline:
                   identifier: initterraform
                   spec:
                     shell: Sh
+                    command: |-
+                      echo hello
+                      pwd
+                      ls
+              - step:
+                  type: Run
+                  name: terraform
+                  identifier: terraform
+                  spec:
+                    shell: Bash
                     command: terraform init
         delegateSelectors:
           - delegate-1-terraform
