@@ -28,7 +28,7 @@ pipeline:
                     shell: Sh
                     command: terraform init
         delegateSelectors:
-          - docker-delegate2-terraform
+          - delegate-1-terraform
   properties:
     ci:
       codebase:
