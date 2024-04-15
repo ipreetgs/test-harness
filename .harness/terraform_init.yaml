@@ -45,3 +45,6 @@ pipeline:
                                 - /
                   timeout: 10m
         tags: {}
+        delegateSelectors:
+          - docker-delegate2-terraform
+          - delegate-1-terraform
