@@ -6,30 +6,12 @@ pipeline:
   tags: {}
   stages:
     - stage:
-        name: terraform-test
-        identifier: terraformtest
-        description: ""
-        type: CI
-        spec:
-          cloneCodebase: true
-          platform:
-            os: Linux
-            arch: Amd64
-          runtime:
-            type: Docker
-            spec: {}
-          execution:
-            steps:
-              - step:
-                  type: Run
-                  name: Run_1
-                  identifier: Run_1
-                  spec:
-                    shell: Bash
-                    command: terraform init
-        delegateSelectors:
-          - docker-delegate2-terraform
-          - delegate-1-terraform
+        name: terraform init
+        identifier: terraform_init
+        tags: {}
+        template:
+          templateRef: init_stage
+          versionLabel: v1
   properties:
     ci:
       codebase:
