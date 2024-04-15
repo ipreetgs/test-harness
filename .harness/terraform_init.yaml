@@ -8,13 +8,40 @@ pipeline:
     - stage:
         name: terraform init
         identifier: terraform_init
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: TerraformPlan
+                  name: TerraformPlan_1
+                  identifier: TerraformPlan_1
+                  spec:
+                    provisionerIdentifier: a1a
+                    cloudCliConfiguration:
+                      command: Apply
+                      configFiles:
+                        store:
+                          spec:
+                            connectorRef: account.Github_OAuth_1702454216196
+                            repoName: ipreetgs/test-harness
+                            gitFetchType: Branch
+                            branch: main
+                            folderPath: .
+                          type: Github
+                        moduleSource:
+                          useConnectorCredentials: true
+                      backendConfig:
+                        type: Remote
+                        spec:
+                          store:
+                            type: S3
+                            spec:
+                              connectorRef: awspersonaltx
+                              bucketName: demotxtfstatefile
+                              region: us-east-1
+                              paths:
+                                - /
+                  timeout: 10m
         tags: {}
-        template:
-          templateRef: init_stage
-          versionLabel: v1
-  properties:
-    ci:
-      codebase:
-        connectorRef: account.Github_OAuth_1702454216196
-        repoName: ipreetgs/test-harness
-        build: <+input>
