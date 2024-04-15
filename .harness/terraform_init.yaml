@@ -42,7 +42,7 @@ pipeline:
                               bucketName: demotxtfstatefile
                               region: us-east-1
                               paths:
-                                - /
+                                - statefile/
                   timeout: 10m
         tags: {}
         delegateSelectors:
