@@ -32,17 +32,6 @@ pipeline:
                           type: Github
                         moduleSource:
                           useConnectorCredentials: true
-                      backendConfig:
-                        type: Remote
-                        spec:
-                          store:
-                            type: S3
-                            spec:
-                              connectorRef: awspersonaltx
-                              bucketName: demotxtfstatefile
-                              region: us-east-1
-                              paths:
-                                - statefile/
                   timeout: 10m
         tags: {}
         delegateSelectors:
